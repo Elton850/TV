@@ -24,10 +24,10 @@ iframe {
     width: 100%;
     height: 100%;
     border: none;
-    display: none; /* todos escondidos inicialmente */
+    display: none;
 }
 iframe.active {
-    display: block; /* só o ativo aparece */
+    display: block;
 }
 </style>
 
@@ -51,23 +51,22 @@ let container = document.getElementById("container");
 let iframes = [];
 let index = 0;
 
-/* cria todos os iframes de uma vez */
 pages.forEach(url => {
     let frame = document.createElement("iframe");
     frame.src = url;
+    frame.loading = "lazy";
+    frame.allowFullscreen = true;
+    frame.allow = "fullscreen";
     container.appendChild(frame);
     iframes.push(frame);
 });
 
-/* função que alterna visibilidade */
 function rotate() {
     iframes.forEach(f => f.classList.remove("active"));
     iframes[index].classList.add("active");
-
-    index = (index + 1) % iframes.length; // reset automático ao final
+    index = (index + 1) % iframes.length;
 }
 
-/* inicia imediatamente e roda a cada 25s */
 rotate();
 setInterval(rotate, 25000);
 </script>
